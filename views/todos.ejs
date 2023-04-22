@@ -5,93 +5,27 @@
     <%- include('./partials/header') %>
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <script defer src="/javascripts/todos.js"></script>
+    <script defer src="/javascripts/logout.js"></script>
   </head>
   <body>
     <%- include('./partials/main-header') %>
-    <div class="container d-flex align-items-center justify-content-center">
+    <div class="container d-flex align-items-center justify-content-center mb-2">
       <button
         type="button"
         class="btn btn-primary d-flex align-items-center justify-content-center"
         data-bs-toggle="modal"
         data-bs-target="#todoModal"
-        data-bs-whatever="@mdo"
       >
         <span class="material-symbols-outlined"> add_box </span><span>Add</span>
       </button>
     </div>
-    <div
-      class="modal fade"
-      id="todoModal"
-      tabindex="-1"
-      aria-labelledby="todoModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="todoModalLabel">New message</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form id="todoForm">
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label"
-                  >Title :</label
-                >
-                <input type="text" class="form-control" id="title" name="title" />
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label"
-                  >Content:</label
-                >
-                <textarea class="form-control" id="content" name="content"></textarea>
-              </div>
-              <div class="mb-3">
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label" for="completed"
-                    >Complete
-                  </label>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="completed"
-                    id="completed"
-                    value="true"
-                  />
-                </div>
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Not Complete
-                  </label>
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="completed"
-                    id="not-completed"
-                    value="false"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
+    <%- include('./partials/add-todo') %>
+
+    <div class="container-fluid">
+      <div id="todosList" class="todo__list">
+        <% for(let i=0; i<todos.length; i++) {%>
+            <%- include('./partials/todo', {todo :  todos[i]}) %>
+       <% } %>
       </div>
     </div>
   </body>

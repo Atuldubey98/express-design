@@ -1,5 +1,22 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.todo__list {
+  display: grid;
+  gap: 0.2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 720px) {
+  .todo__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .todo__list {
+    grid-template-columns: 1fr;
+  }
 }

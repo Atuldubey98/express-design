@@ -5,6 +5,15 @@ const User = require("../models/User");
 userRouter.get("/login", function (req, res, next) {
   res.render("login", { title: "Login - Todos" });
 });
+userRouter.post("/logout", function (req, res, next) {
+  res.clearCookie("connect.sid");
+  req.session.destroy((error) => {
+    if (error) {
+      return res.status(404).send(false);
+    }
+    return res.status(200).send(true);
+  });
+});
 userRouter.post("/login", async function (req, res, next) {
   const { email, password } = req.body;
   if (!email || !password) {

@@ -1,0 +1,13 @@
+<div id="<%=todo.id%>" class="card <%=todo.completed ? ' border-success' : ''%>">
+  <div class="card-body">
+    <h5 class="card-title"><%=todo.title%></h5>
+    <p class="card-text"><%=todo.content%></p>
+    <button
+      onclick="deleteTodo('<%=todo.id%>')"
+      id="deleteBtn"
+      class="btn btn-primary"
+    >
+      Delete
+    </button>
+  </div>
+</div>

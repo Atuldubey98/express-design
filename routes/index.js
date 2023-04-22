@@ -8,12 +8,16 @@ var router = express.Router();
 router.get("/", isAuthenticated, async function (req, res, next) {
   try {
     const todosCompletedCount = await Todo.count({
-      UserEmail: req.session.user.email,
-      completed: true,
+      where: {
+        UserEmail: req.session.user.email,
+        completed: true,
+      },
     });
     const todosNotCompletedCount = await Todo.count({
-      UserId: req.session.user.email,
-      completed: false,
+      where: {
+        UserEmail: req.session.user.email,
+        completed: false,
+      },
     });
     return res.render("index", {
       title: "Landing-Todo",
@@ -49,6 +53,23 @@ router.post("/todos", isAuthenticated, async function (req, res, next) {
     return res.status(201).send(newTodo);
   } catch (error) {
     handleErrors(req, res, next);
+  }
+});
+router.delete("/todos/:id", isAuthenticated, async function (req, res, next) {
+  const todoId = req.params.id ? Number(req.params.id) : 0;
+  try {
+    const todo = await Todo.findByPk(todoId);
+    if (!todo) {
+      return res.status(404).send("NOT_FOUND");
+    }
+    await Todo.destroy({
+      where: {
+        id: todoId,
+      },
+    });
+    return res.status(200).send(true);
+  } catch (error) {
+    return res.status(400).json(false);
   }
 });
 module.exports = router;

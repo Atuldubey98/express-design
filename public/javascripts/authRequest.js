@@ -25,6 +25,21 @@ async function postRequest(url, data) {
   ).json();
   return response;
 }
+async function deleteRequest(url) {
+  if (!url || typeof url !== "string") {
+    throw new Error("Url is not string");
+  }
+  const response = await (
+    await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
+  return response;
+}
 async function getRequest(url) {
   if (!url || typeof url !== "string") {
     throw new Error("Url is not string");
@@ -33,3 +48,4 @@ async function getRequest(url) {
     credentials: true,
   });
 }
+
